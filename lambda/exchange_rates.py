@@ -5,6 +5,7 @@ import urllib.error
 import urllib.request
 from datetime import datetime
 import xml.etree.ElementTree as ET
+import os
 
 
 logger = logging.getLogger()

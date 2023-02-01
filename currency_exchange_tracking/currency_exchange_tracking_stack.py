@@ -16,7 +16,7 @@ LAMBDA_CODE = './lambda'
 LAMBDA_SCHEDULED_HOUR = '16'
 
 
-class ExchangeRatesTrackingStack(Stack):
+class CurrencyExchangeTrackingStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
