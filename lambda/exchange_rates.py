@@ -6,6 +6,7 @@ import urllib.request
 from datetime import datetime
 import xml.etree.ElementTree as ET
 import os
+import boto3
 
 
 logger = logging.getLogger()
