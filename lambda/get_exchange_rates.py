@@ -18,9 +18,9 @@ def handler(event, context):
         error = "No data available, please try later"
         return {'statusCode': 200, 'body': json.dumps({'error': error}, indent=4)}
     LOGGER.info('Constructing response')
-    response = {'update_at': 'N/A', 'created_at': 'N/A', 'base_currency': 'EUR', 'exchange_rates': []}
+    response = {'updated_at': 'N/A', 'created_at': 'N/A', 'base_currency': 'EUR', 'exchange_rates': []}
     for item in items:
-        if item['id'] in ('update_at', 'created_at'):
+        if item['id'] in ('updated_at', 'created_at'):
             response[item['id']] = item['value']
         else:
             data = {'currency':          item['id'],
@@ -37,7 +37,6 @@ def handler(event, context):
 def read_from_db():
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)
-    # Read table data
     response = table.scan()
     items = response['Items']
     while 'LastEvaluatedKey' in response:

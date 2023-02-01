@@ -44,6 +44,10 @@ def fetch_exchange_rates():
         logger.critical('Failed to read exchange rates from XML: %s', exchange_url)
         sys.exit(1)
     date = data[0]['date']
+
+    return date, rates_and_difference(data)
+
+def rates_and_difference(data):
     latest_rates = data[0]['rates']
     previous_rates = data[1]['rates']
     exchange_rates = {}
@@ -58,8 +62,8 @@ def fetch_exchange_rates():
         diff = f'+{diff}' if diff > 0 else f'{diff}'
         diff_percent = f'+{diff_percent} %' if diff_percent > 0 else f'{diff_percent} %'
         exchange_rates[currency] = {'value': rate, 'diff': diff, 'diff_percent': diff_percent}
-    return date, exchange_rates
 
+    return exchange_rates
 
 def update_exchange_rates(date, exchange_rates):
     dynamodb = boto3.resource('dynamodb')
