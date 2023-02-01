@@ -4,13 +4,13 @@ from aws_cdk import (
     Stack,
     Duration,
     triggers,
-    RemovalPolicy,
     aws_logs as logs,
     aws_lambda as _lambda,
     aws_dynamodb as dynamodb,
     aws_apigateway as apigateway,
     aws_events as events,
-    aws_events_targets as events_targets
+    aws_events_targets as events_targets,
+    RemovalPolicy
 )
 LAMBDA_CODE = './lambda'
 LAMBDA_SCHEDULED_HOUR = '16'

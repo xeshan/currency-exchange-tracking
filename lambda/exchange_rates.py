@@ -16,7 +16,7 @@ TABLE_NAME = os.environ['TABLE_NAME']
 def handler(event, context):
     logger.info('fetching data')
     date, exchange_rates = fetch_exchange_rates()
-    update_exchange_rates = date, exchange_rates
+    update_exchange_rates(date, exchange_rates)
     logger.info('job completed')
 
 
@@ -67,5 +67,5 @@ def update_exchange_rates(date, exchange_rates):
             data['id'] = currency
             writer.put_item(Item=data)
         # Dates
-        writer.put_item(Item={'id': 'publish_date', 'value': date})
-        writer.put_item(Item={'id': 'update_date', 'value': datetime.utcnow().strftime('%Y-%m-%d')})
+        writer.put_item(Item={'id': 'created_at', 'value': date})
+        writer.put_item(Item={'id': 'updated_at', 'value': datetime.utcnow().strftime('%Y-%m-%d')})
