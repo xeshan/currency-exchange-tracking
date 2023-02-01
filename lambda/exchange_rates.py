@@ -11,6 +11,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 exchange_url = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml'
+TABLE_NAME = os.environ['TABLE_NAME']
 
 def handler(event, context):
     logger.info('fetching data')
@@ -60,10 +61,11 @@ def fetch_exchange_rates():
 
 def update_exchange_rates(date, exchange_rates):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('exch_rates')
+    table = dynamodb.Table(TABLE_NAME)
     with table.batch_writer() as writer:
         for currency, data in exchange_rates.items():
             data['id'] = currency
             writer.put_item(Item=data)
+        # Dates
         writer.put_item(Item={'id': 'publish_date', 'value': date})
         writer.put_item(Item={'id': 'update_date', 'value': datetime.utcnow().strftime('%Y-%m-%d')})
