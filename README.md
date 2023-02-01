@@ -55,4 +55,41 @@ command.
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
 
-Enjoy!
+
+
+# Currency exchange tracking app setup
+
+Currency exchange tracking application developed in AWS lambda environment, deployable using AWS CDK. 
+
+## Deployment
+
+Bootstrap CDK to setup necessary resources 
+```bash
+$ cdk bootstrap
+```
+
+Synthesize the code for CloudFormation template 
+```bash
+$ cdk synth
+```
+
+Deploy application on AWS
+```bash
+$ cdk deploy
+```
+
+if successfully deployed then following will be output
+
+![ckdout](cdk_output.png?raw=true)
+
+API response
+
+![api_res](api_response.png?raw=true)
+
+Clean the deployment
+
+```bash
+$ cdk destroy
+```
+
+
